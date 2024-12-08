@@ -12,9 +12,9 @@
   </author>
   <entry>
     <title>Welcome!</title>
-    <link href="https://example.com/blog/firstpost/" />
+    <link href="https://example.com/posts/firstpost/" />
     <updated>2024-12-07T00:00:00Z</updated>
-    <id>https://example.com/blog/firstpost/</id>
+    <id>https://example.com/posts/firstpost/</id>
     <content type="html">&lt;p&gt;I have finally set up a blog. This is where longform things that don&#39;t fit on social media will go. There are some things I&#39;ve done research on or deep-dives into that don&#39;t necessarily fit into a social media post or thread. Plus editing and images are a thing. This also has full support for inserting code and syntax highlighting with no JavaScript, which is really nice. Expect a post with actual content in the near future!&lt;/p&gt;
 </content>
   </entry>
