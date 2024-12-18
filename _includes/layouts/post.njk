@@ -4,7 +4,8 @@ layout: layouts/base.njk
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
 {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
 {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
-<h1>{{ title }}</h1>
+<h1 class="post-title">{{ title }}</h1>
+<p class="post-subtitle">{{ description }}</p>
 
 <ul class="post-metadata">
 	<li>date: <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
