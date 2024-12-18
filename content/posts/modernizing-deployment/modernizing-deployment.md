@@ -588,7 +588,7 @@ There we go!
 
 Let's get production ready. Currently, ResLogger2 runs a docker compose setup. We can take down the compose completely, then bring up the db service to run an export.
 
-```
+```_
 ubuntu@main:~/app$ docker-compose -f docker-compose.prod.yml -p rl2 down --remove-orphans
 [+] Running 3/3
  ⠿ Container rl2-web-1  Removed                                                                   0.3s
@@ -607,7 +607,7 @@ Now that we have an export ready, we can take down this compose entirely. I've m
 Once it's deployed (Hooray! Our stack works not only in Production but on arm64!), we can begin the restoration. I've blocked incoming traffic so the web service can sit in peace while we prep the database.
 
 Copy the backup into the container and restore it:
-```
+```_
 ubuntu@main:~$ docker cp db.backup rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
 Successfully copied 235MB to rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
 ubuntu@main:~$ docker exec -it rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku "/bin/sh"
