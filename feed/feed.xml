@@ -520,7 +520,7 @@ ENTRYPOINT [&quot;dotnet&quot;, &quot;ResLogger2.Web.dll&quot;]&lt;/code&gt;&lt;
 &lt;p&gt;There we go!&lt;/p&gt;
 &lt;h2 id=&quot;finalizing-it&quot;&gt;Finalizing it&lt;/h2&gt;
 &lt;p&gt;Let&#39;s get production ready. Currently, ResLogger2 runs a docker compose setup. We can take down the compose completely, then bring up the db service to run an export.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;ubuntu@main:~/app$ docker-compose -f docker-compose.prod.yml -p rl2 down --remove-orphans
+&lt;pre class=&quot;language-_&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-_&quot;&gt;ubuntu@main:~/app$ docker-compose -f docker-compose.prod.yml -p rl2 down --remove-orphans
 [+] Running 3/3
  ⠿ Container rl2-web-1  Removed                                                                   0.3s
  ⠿ Container rl2-db-1   Removed                                                                   0.2s
@@ -530,19 +530,17 @@ ubuntu@main:~/app$ sudo docker compose -f /home/ubuntu/app/docker-compose.prod.y
  ✔ Container rl2-db-1  Started                                                                    0.2s
 ubuntu@main:~/app$ sudo docker compose -f /home/ubuntu/app/docker-compose.prod.yml -p rl2 exec db pg_dump -U rl2 -F t -f /db_backup/db.backup
 ubuntu@main:~/app$ ls deploy/persistence/db_backup/
-db.backup
-&lt;/code&gt;&lt;/pre&gt;
+db.backup&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now that we have an export ready, we can take down this compose entirely. I&#39;ve moved the entire contents here from &lt;code&gt;app&lt;/code&gt; to &lt;code&gt;app_old&lt;/code&gt; for temporary safekeeping. Let&#39;s attempt a production deployment. We do everything the exact same, but slightly adjust the compose stack for production by referencing the &lt;code&gt;Production.env&lt;/code&gt; file and changing the url passed to Caddy. We also add a new &lt;code&gt;pg_backup&lt;/code&gt; volume for transfer in and out of the container - we can restore our database backup through here as well as take backups out from here. I back up the ResLogger2 database dump every day.&lt;/p&gt;
 &lt;p&gt;Once it&#39;s deployed (Hooray! Our stack works not only in Production but on arm64!), we can begin the restoration. I&#39;ve blocked incoming traffic so the web service can sit in peace while we prep the database.&lt;/p&gt;
 &lt;p&gt;Copy the backup into the container and restore it:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;ubuntu@main:~$ docker cp db.backup rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
+&lt;pre class=&quot;language-_&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-_&quot;&gt;ubuntu@main:~$ docker cp db.backup rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
 Successfully copied 235MB to rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
-ubuntu@main:~$ docker exec -it rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku &amp;quot;/bin/sh&amp;quot;
+ubuntu@main:~$ docker exec -it rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku &quot;/bin/sh&quot;
 / # dropdb -f rl2 -U rl2
 / # createdb -U rl2 -W rl2
 Password:
-/ # pg_restore -U rl2 -d rl2 /pg_backup/db.backup
-&lt;/code&gt;&lt;/pre&gt;
+/ # pg_restore -U rl2 -d rl2 /pg_backup/db.backup&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And the database is back, and the stats page populates without a problem. There was a slight issue due to some config changes I made regarding the file-serving path inside of the container, but that was my fault. I updated the output path inside the container to remove a subfolder, but didn&#39;t change the links on the download page. Oops!&lt;/p&gt;
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;What did we learn here?&lt;/p&gt;
