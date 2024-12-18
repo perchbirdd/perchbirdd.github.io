@@ -149,7 +149,13 @@ table th {
 
 pre,
 code {
+	font-size: 85%;
 	font-family: var(--font-family-monospace);
+	background-color: #272822;
+}
+code[class*="language-"],
+pre[class*="language-"] {
+	font-size: 85%;
 }
 pre:not([class*="language-"]) {
 	margin: .5em 0;
@@ -274,4 +280,8 @@ header {
 .post-metadata time {
 	margin-right: 1em;
 }
-
+.post-subtitle {
+	margin-top: -1.5em;
+	font-size: 75%;
+	font-style: italic;
+}

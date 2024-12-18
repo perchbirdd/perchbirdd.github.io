@@ -327,7 +327,13 @@ table th {
 
 pre,
 code {
+	font-size: 85%;
 	font-family: var(--font-family-monospace);
+	background-color: #272822;
+}
+code[class*="language-"],
+pre[class*="language-"] {
+	font-size: 85%;
 }
 pre:not([class*="language-"]) {
 	margin: .5em 0;
@@ -451,6 +457,11 @@ header {
 }
 .post-metadata time {
 	margin-right: 1em;
+}
+.post-subtitle {
+	margin-top: -1.5em;
+	font-size: 75%;
+	font-style: italic;
 }</style>
 		<!-- <style>@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,100..900&display=swap');</style> -->
 		<style>@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
@@ -473,7 +484,8 @@ header {
 		<main id="skip">
 			<heading-anchors>
 				
-<h1 id="welcome">Welcome!</h1>
+<h1 class="post-title" id="welcome">Welcome!</h1>
+<p class="post-subtitle">perchbird&#39;s first blog post (not really though, I had a Tumblr)</p>
 
 <ul class="post-metadata">
 	<li>date: <time datetime="2024-12-07">07 December 2024</time></li>
@@ -483,6 +495,8 @@ header {
 
 <p>I have finally set up a blog. This is where longform things that don't fit on social media will go. There are some things I've done research on or deep-dives into that don't necessarily fit into a social media post or thread. Plus editing and images are a thing. This also has full support for inserting code and syntax highlighting with no JavaScript, which is really nice. Expect a post with actual content in the near future!</p>
 
+<ul class="links-nextprev"><li class="links-nextprev-next">Next →<br><a href="/posts/modernizing-deployment/">Modernizing Software Deployment For Dummies</a></li>
+</ul>
 
 			</heading-anchors>
 		</main>
@@ -491,7 +505,7 @@ header {
 			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.0.0</a></em></p>
 		</footer>
 
-		<!-- This page `/posts/firstpost/` was built on 2024-12-08T04:56:22.811Z -->
+		<!-- This page `/posts/firstpost/` was built on 2024-12-18T00:25:17.362Z -->
 		<script type="module" src="/dist/rJ3_G-2ArF.js"></script>
 	</body>
 </html>

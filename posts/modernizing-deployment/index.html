@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Modernizing Software Deployment For Dummies</title>
+		<meta name="description" content="I had it all figured out, until I didn&#39;t">
+		<link rel="alternate" href="feed/feed.xml" type="application/atom+xml" title="perch posts">
+		
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* This is an arbitrary CSS string added to the bundle */
+/* Defaults */
+:root {
+	--font-family: Atkinson Hyperlegible, -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #e0e0e0;
+		--color-gray-50: #C0C0C0;
+		--color-gray-90: #dad8d8;
+
+		/* --text-color is assigned to --color-gray-_ above */
+		--text-color-link: #1493fb;
+		--text-color-link-active: #6969f7;
+		--text-color-link-visited: #a6a6f8;
+
+		--background-color: #15202b;
+	}
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	font-size: 1.1em;
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 40em;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img {
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main,
+footer {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-size: 85%;
+	font-family: var(--font-family-monospace);
+	background-color: #272822;
+}
+code[class*="language-"],
+pre[class*="language-"] {
+	font-size: 85%;
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	overflow-x: auto;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	counter-increment: start-from -1;
+	margin-bottom: 1em;
+}
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	/* display: inline-flex; */
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-tag {
+	display: inline-flex;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+.post-subtitle {
+	margin-top: -1.5em;
+	font-size: 75%;
+	font-style: italic;
+}</style>
+		<!-- <style>@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,100..900&display=swap');</style> -->
+		<style>@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">perch posts</a>
+			<nav>
+				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/about/">About</a></li>
+					<li class="nav-item"><a href="/feed/feed.xml">Feed</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			<heading-anchors>
+				
+<h1 class="post-title" id="modernizing-software-deployment-for-dummies">Modernizing Software Deployment For Dummies</h1>
+<p class="post-subtitle">I had it all figured out, until I didn&#39;t</p>
+
+<ul class="post-metadata">
+	<li>date: <time datetime="2024-12-08">08 December 2024</time></li>
+	<li class="post-tag">tags:</li>
+	<li class="post-tag"><a href="/tags/ffxiv/" class="post-tag">ffxiv</a>, </li>
+	<li class="post-tag"><a href="/tags/plugin/" class="post-tag">plugin</a>, </li>
+	<li class="post-tag"><a href="/tags/deployment/" class="post-tag">deployment</a>, </li>
+	<li class="post-tag"><a href="/tags/docker/" class="post-tag">docker</a>, </li>
+	<li class="post-tag"><a href="/tags/github/" class="post-tag">github</a></li>
+</ul>
+
+<p>I think one of the founding issues of programming education is that nobody shows you how to ship. There are countless examples, guides, tutorials online about how to use the latest framework to publish a to-do app to Vercel, but very few that show you how to take an application <em>you didn't think would get so complicated!</em> and deploy it yourself, automatically, securely, and easily.</p>
+<h1 id="introduction-to-reslogger">Introduction to ResLogger</h1>
+<p>I write plugins for Final Fantasy XIV. The game itself has a virtual filesystem of sorts that utilize two file types: index files and dat files. You can think of an index file as a hashmap of file positions. The dat file is where the data actually is. The index file, being a hashmap, rarely stores actual file paths. If the game wants to know where <code>chara/monster/m0887/obj/body/b0001/model/m0887b0001.mdl</code> is, the process goes as follows (assuming a retail game install - benchmarks work slightly differently):</p>
+<ol>
+<li>Split the file path into folder and file parts. That is, <code>chara/monster/m0887/obj/body/b0001/model</code> and <code>m0887b0001.mdl</code>.</li>
+<li>Use some simple fallthrough conditionals to determine the &quot;category ID&quot; of the path. This one is in (hex) <code>040000</code> because the path starts with <code>cha</code>.</li>
+<li>Hash the folder part and the file part using JAMCRC.</li>
+<li>Look up the folder CRC in the index file data, then look up the file CRC. Since these are sorted by folder -&gt; file, it's very fast.</li>
+<li>Obtain the data for this entry. 4 packed bytes contains the data file ID and the block offset.</li>
+<li>Use the data file ID to determine the data file (<code>040000.win32.dat0</code>, <code>.dat1</code>, etc) and the offset in the file (block offset * 8).</li>
+<li>Read the blocks from the data file in Square Enix's very special way.</li>
+</ol>
+<p>If you paid attention here, you may be thinking &quot;so they don't store the paths?&quot; No*. They do not. <a href="https://www.google.com/search?q=ffxiv+explorer+%22hash%22">That has been an industrial strength irritant for over a decade.</a> That means the process of collecting paths is left to the reverse engineers. Unfortunately, not all paths are referenced directly, so you can't just parse them all out from other files like some kind of heathen. Some paths may never be referenced by another file, either hardcoded into the executable like title screen zones, computed at runtime like monster assets, or just not referenced at all like future assets for unreleased content. The unknown and unreleased stuff might be explored in a future post, but the things that the game actually does load can be tracked.</p>
+<p>The FFXIV datamining community has long had a Cheat Engine script for this purpose. That script would set a breakpoint at a single hardcoded address and handle the breakpoint using a cheat engine lua function that would write to the output window and to a file. It worked okay, but required Cheat Engine running and attached, required manual updates, and was not very... extensible, I guess you would say. When the Dalamud plugin system came around and I had experience with plugins, I became tired of this silly script and instead wrote a plugin that would do the same thing - but all the time. No matter what you were doing, when you loaded the game, it would begin logging paths, and simply writing them to a text file. This was a good enough replacement at the time. It provided an easy-to-use interface that allowed you to see in real-time which paths were being loaded, and wrote them to a file as well for import into a &quot;hash list database&quot; or other tools.</p>
+<h2 id="reslogger2">ResLogger2</h2>
+<p>Fast forward a while, and I decided that path collecting could be amplified if it was crowdsourced. I built a small API in Python using Flask and Postgres that would accept a request containing a number of paths, and store it into a database for export later. The difficult part was ensuring that paths actually &quot;existed&quot; - modding was a common pastime in FFXIV, and modders had become privy to the fact that they could technically store their files at <em>any</em> file path, and FFXIV would request it as long as it was referenced properly. Client-side validation would still pass, as the main method of modding would outright modify your index files in order to function. This would result in my API being fed game paths that didn't actually exist - poisoned data, so to speak. There's no auth or user validation, so it's not as easy as just removing all paths provided by a specific user. The system needed to read fresh, valid index files on the API side.</p>
+<p>I achieved this with extremely simple index file reading code in Python and a bash script to manually sync the index files (remember, that's all we actually need to determine if a path exists) up to the server, which, upon restarting, would read these files into memory for quick &quot;existence&quot; checks. Of course, a free, open-source crowdsourcing service should provide its data freely, so I had a cronjob perform a CSV-format dump of the database every night. This simple deployment consisted of the Python web service hosted directly through Flask and a Postgres server next to it, spun up via <a href="https://github.com/perchbirdd/ResLogger2/blob/5ee4ecc96281f8c8cb9bf14074e5303fa59b7ca5/ResLogger2.Web/docker-compose.yml">docker-compose</a>. In development, this worked... fine for testing, as I could spin up the DB in a container, and run the API directly on my machine for a quick development loop. To deploy, I would switch my shell from PowerShell to WSL2 and run a script that would use rsync to copy all of my source up to the server. On the server, I would SSH in and restart the docker-compose stack by rebuilding the API image directly on the deployment server.</p>
+<h2 id="asp-net">ASP.NET</h2>
+<p>I quickly got fed up with uploading index files to the server every. single. patch. Isn't there a way I could do this automatically??? Well, no. There wasn't. I had to wait until a good friend <a href="https://bsky.app/profile/lumi.zip">Lumi</a> developed <a href="https://thaliak.xiv.dev">Thaliak</a>, which polls XIV login servers and provides an API for checking for updates. At this point, there was already battle-tested code for reading XIV patch files in <a href="https://github.com/goatcorp/FFXIVQuickLauncher">XIVLauncher</a> (which, coincidentally, Lumi extracted and placed on NuGet), but this was in C#, meaning a rewrite was necessary.</p>
+<p>ASP.NET is significantly more complicated than Flask was. While I'm not the most competent Python programmer, Flask was pretty easy to spin up the original API design in. Maybe I'm giving it too much credit, because the system itself became much more complicated when moving to ASP.NET as well.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Python</th>
+<th>C#</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Path existence</td>
+<td>Read index files on startup</td>
+<td>Hydrated database with hash components correlated between index1 and index2</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Manually copied index files up to the server</td>
+<td>Quartz job performing automatic updates by storing latest game versions in database and checking against Thaliak</td>
+</tr>
+<tr>
+<td>Path list export</td>
+<td>Postgres dump in CSV format</td>
+<td>Quartz job performing export in 3 forms, both zipped and gzipped for automated use</td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>A single link passed around the XIV community</td>
+<td>A website with descriptions of the offered export formats, plus code samples for consuming them</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>docker compose logs?</td>
+<td>Seq log forwarding with dashboards and exception notifications to Telegram</td>
+</tr>
+</tbody>
+</table>
+<p>One thing did not change... deployment. Updates to the service were still deployed by rsync'ing all of my code up to the server and re-building the containers. Now I'm tired of that.</p>
+<h1 id="deployment-shenanigans">Deployment Shenanigans</h1>
+<h2 id="whats-the-problem">What's the problem?</h2>
+<p>The setup, as I'm writing this, is as follows. ResLogger2 is a monorepo with a common library, local development tools, the web service, and the Dalamud plugin all in one repository. The plugin deployment is fine, as the automated build system for those is just provided the path to the plugin project. The common repository is fine. Local tools are not committed to the repository, as it has about 3000 lines of testing code to hydrate the original database. I haven't cleaned and committed any of that because the minimum code needed is already implemented in the common library. It's pretty much just a testbed. The web service has two uncommitted appsettings files for ASP.NET configuration, because I didn't want to leak any secrets and I constantly moved from defining them in the appsettings, in the .env file, or directly in the docker compose file. My .env.prod file for production deployment exists only on my Desktop and the server. The docker compose file for production exists only on... the server. I sync this to the server using - you guessed it - an uncommitted bash script that references an SSH key that is once again, only on my Desktop. The state of things is not great.</p>
+<p>As of right now, not only can the code on the repository be completely different than the code on the server, but that can also be different than the code on my Desktop. I can only deploy from my Desktop unless I grab the SSH key and sync script and bring them over to another system - another manual process, since they're in .gitignore to once again prevent secrets leaks and to keep the repo clean. This is not even considering actually deploying - rebuilding the container image every single time (this means compiling and publishing the executable for the service) is so obnoxious, and takes up valuable space on layers that the production server should never even need to store. I don't want it to <em>just work</em> anymore. I want it to work <em>well</em>.</p>
+<h2 id="what-do-we-want">What do we want?</h2>
+<p>I knew ResLogger2, as my first web service, was going to be a huge learning experience. I built the client application around the idea that I may need to take the web service down for unknown periods of time for maintenance, troubleshooting, debugging, the growing pains. Web service failures on the client side are almost completely ignored and are completely transparent to the user. It's just crowdsourcing, after all. I am glad I did this. It makes server maintenance much less stressful.</p>
+<p>My ideal workflow is as follows: I have the plugin pointing at a local endpoint for development. I would likely restore a production DB backup to the local container for development. I can see a purpose for three different configurations for local development, all with zero friction: DB in container, API locally. DB in container, API in container with hot reload. DB in container, API in container, built in Release like production. This is, in my opinion, the ideal set of development stacks, because things just always go wrong. I constantly find myself trying to figure out why, when running both services in their containers, I can no longer connect to the database, but outside of the container, the API can connect to the database just fine. For actual deployment, I imagine having the ResLogger2.Web repository split out of everything else. I don't care if I have to submodule or NuGet the common library, both are sufficient. I'd like two branches - main for production, <code>stg</code> for builds that should be deployed to production-like environments for testing and verifying service startup and basic functionality. <code>stg</code> deploys every commit. <code>main</code> deploys commits tagged with a version number, and makes a release. Certificates are handled automatically on both environments. There are no extraneous files inside the repository. No bash scripts to run. No mission-critical files are in .gitignore for fear of leaking something important.</p>
+<p>I think that's a reasonable goal.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>The first thing that needs to be handled is local development. I think we'll need multiple compose files in order to do what we're looking to do. However, the repository needs some handling first.</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/Wh9rzcp_fa-1171.avif 1171w"><source type="image/webp" srcset="/posts/modernizing-deployment/Wh9rzcp_fa-1171.webp 1171w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/Wh9rzcp_fa-1171.png" alt="The ResLogger2 repo, with a folder for Common, a folder for the Plugin, and a folder for Web. There is a .dockerignore file, an .env.dev file, and a docker-compose.yml file in the root as well." width="1171" height="807"></picture></p>
+<p>I'm going to go with this setup:</p>
+<pre><code>perchbirdd GitHub
+├─ ResLogger2.Common
+├─ ResLogger2.Plugin
+│  ├─ ResLogger2.Common
+├─ ResLogger2.Web
+│  ├─ ResLogger2.Common
+</code></pre>
+<p>When there's an update pushed to common, just update the submodule and push that. I think we can close the book on ResLogger2.Common for now.</p>
+<p>The next thing to handle is appsettings.json. Here are the current versions of those files:</p>
+<p><code>appsettings.Development.json</code></p>
+<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"Kestrel"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"EndPoints"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"Http"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"Url"</span><span class="token operator">:</span> <span class="token string">"http://*:5103"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"Https"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"Url"</span><span class="token operator">:</span> <span class="token string">"http://*:7281"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"ExportDirectory"</span><span class="token operator">:</span> <span class="token string">"testing/live/"</span><span class="token punctuation">,</span>
+  <span class="token property">"BackupDirectory"</span><span class="token operator">:</span> <span class="token string">"testing/"</span>
+<span class="token punctuation">}</span></code></pre>
+<p><code>appsettings.json</code></p>
+<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"Kestrel"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"EndPoints"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"Http"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"Url"</span><span class="token operator">:</span> <span class="token string">"http://*:80"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"Https"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"Url"</span><span class="token operator">:</span> <span class="token string">"https://*:443"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"LettuceEncrypt"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"AcceptTermsOfService"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"DomainNames"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"rl2.perchbird.dev"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"EmailAddress"</span><span class="token operator">:</span> <span class="token string">"[omitted]"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"Serilog"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"Using"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"Serilog.Sinks.Console"</span><span class="token punctuation">,</span> <span class="token string">"Serilog.Sinks.File"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"MinimumLevel"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"Default"</span><span class="token operator">:</span> <span class="token string">"Debug"</span><span class="token punctuation">,</span>
+      <span class="token property">"Override"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"Microsoft.EntityFrameworkCore"</span><span class="token operator">:</span> <span class="token string">"Warning"</span><span class="token punctuation">,</span>
+        <span class="token property">"Microsoft.AspNetCore"</span><span class="token operator">:</span> <span class="token string">"Warning"</span><span class="token punctuation">,</span>
+        <span class="token property">"Quartz.Core"</span><span class="token operator">:</span> <span class="token string">"Warning"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"WriteTo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"Name"</span><span class="token operator">:</span> <span class="token string">"Console"</span><span class="token punctuation">,</span>
+        <span class="token property">"Args"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"outputTemplate"</span><span class="token operator">:</span> <span class="token string">"{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"Name"</span><span class="token operator">:</span> <span class="token string">"File"</span><span class="token punctuation">,</span>
+        <span class="token property">"Args"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/usr/src/app/persistence/web/logs/log-.txt"</span><span class="token punctuation">,</span>
+          <span class="token property">"rollingInterval"</span><span class="token operator">:</span> <span class="token string">"Day"</span><span class="token punctuation">,</span>
+          <span class="token property">"outputTemplate"</span><span class="token operator">:</span> <span class="token string">"{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"Name"</span><span class="token operator">:</span> <span class="token string">"Seq"</span><span class="token punctuation">,</span>
+        <span class="token property">"Args"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"serverUrl"</span><span class="token operator">:</span> <span class="token string">"http://logs.perchbird.dev:5341"</span><span class="token punctuation">,</span>
+          <span class="token property">"apiKey"</span><span class="token operator">:</span> <span class="token string">"[omitted]"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"Enrich"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"FromLogContext"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"Properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"Application"</span><span class="token operator">:</span> <span class="token string">"ResLogger2"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"AllowedHosts"</span><span class="token operator">:</span> <span class="token string">"*"</span><span class="token punctuation">,</span>
+  <span class="token property">"ExportDirectory"</span><span class="token operator">:</span> <span class="token string">"/usr/src/app/persistence/web/live/"</span><span class="token punctuation">,</span>
+  <span class="token property">"BackupDirectory"</span><span class="token operator">:</span> <span class="token string">"/usr/src/app/persistence/web/"</span><span class="token punctuation">,</span>
+  <span class="token property">"CertDirectory"</span><span class="token operator">:</span> <span class="token string">"/usr/src/app/persistence/web/cert/"</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Maybe you can see why I didn't want to commit this guy! As you can see, it needs to access a few directories. These are mapped to the host, not volumes, in the docker-compose:</p>
+<p><code>docker-compose.yml</code></p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.8'</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> .
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> ResLogger2.Web/Dockerfile
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./deploy/persistence/web/<span class="token punctuation">:</span>/usr/src/app/persistence/
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"5103:5103"</span>
+      <span class="token punctuation">-</span> <span class="token string">"7281:7281"</span>
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./.env.dev
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> db
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> bitnami/postgresql<span class="token punctuation">:</span>14.6.0
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> <span class="token string">"1002"</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"5432:5432"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./deploy/persistence/db/<span class="token punctuation">:</span>/bitnami/postgresql
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./.env.dev</code></pre>
+<p>It references <code>.env.dev</code>:</p>
+<pre class="language-a" tabindex="0"><code class="language-a">COMPOSE_PROJECT_NAME=rl2dev
+ASPNETCORE_ENVIRONMENT=Development
+POSTGRESQL_USERNAME=rl2
+POSTGRESQL_PASSWORD=rl2
+PGPASSWORD=${POSTGRESQL_PASSWORD}
+POSTGRESQL_DATABASE=rl2
+POSTGRESQL_HOST=db
+POSTGRESQL_PORT=5432
+RL2_CONNSTRING=Host=${POSTGRESQL_HOST}:${POSTGRESQL_PORT};Database=${POSTGRESQL_DATABASE};Username=${POSTGRESQL_USERNAME};Password=${POSTGRESQL_PASSWORD}
+TZ=America/New_York</code></pre>
+<p>Note that the production docker-compose (<code>docker-compose.prod.yml</code>) is the exact same, except it references <code>.env.prod</code>, which is the exact same as <code>.env.dev</code>, except it has the production database password in it. In reality, there is absolutely nothing sensitive about a bunch of file system paths for a video game, but I'm trying to learn here.</p>
+<h3 id="the-testcontainers-experiment">The Testcontainers Experiment</h3>
+<p>I've always wanted to try out Testcontainers, but I don't have any tests at all for my personal projects. So instead of writing tests for Testcontainers, I was thinking to just use Testcontainers at runtime! My idea was this: rather than having to configure, maintain, and run yet another docker compose file for API-outside-of-container development, I could just spin up and shut down postgres <em>with the application</em> using Testcontainers:</p>
+<pre class="language-cs" tabindex="0"><code class="language-cs"><span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>Environment<span class="token punctuation">.</span><span class="token function">IsDevelopment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	app<span class="token punctuation">.</span><span class="token function">UseSwagger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	app<span class="token punctuation">.</span><span class="token function">UseSwaggerUI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token class-name"><span class="token keyword">var</span></span> pgVolume <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">VolumeBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithName</span><span class="token punctuation">(</span><span class="token string">"pg_data"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithReuse</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token class-name"><span class="token keyword">var</span></span> pg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">PostgreSqlBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithDatabase</span><span class="token punctuation">(</span><span class="token string">"rl2"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithUsername</span><span class="token punctuation">(</span><span class="token string">"rl2"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithPassword</span><span class="token punctuation">(</span><span class="token string">"rl2"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithPortBinding</span><span class="token punctuation">(</span><span class="token number">5432</span><span class="token punctuation">,</span> <span class="token number">5432</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithVolumeMount</span><span class="token punctuation">(</span>pgVolume<span class="token punctuation">,</span> <span class="token string">"/var/lib/postgresql/data"</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">WithWaitStrategy</span><span class="token punctuation">(</span>Wait<span class="token punctuation">.</span><span class="token function">ForUnixContainer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UntilMessageIsLogged</span><span class="token punctuation">(</span><span class="token string">"database system is ready to accept connections"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">await</span> pg<span class="token punctuation">.</span><span class="token function">StartAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ConfigureAwait</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>This worked great, actually. I temporarily set up a bind mount and restored from a production database backup. I got a few errors - expected, as I didn't drop the database, and EF Core had already created everything for me when booting the application. I didn't spend too much time here. Despite the success, I feel that it's both too coupled and too de-coupled. Too coupled to the application, and too de-coupled from the rest of the so-called infrastructure. However, knowing that Testcontainers works flawlessly even outside of tests is a great strategy for super-quick iteration I'll probably use in the future.</p>
+<h2 id="back-to-it">Back to it</h2>
+<p>So... what's the best path forward?  For local development, I think we can do something like so:</p>
+<ul>
+<li>Remove all non-defaults from <code>launchsettings.json</code>. This is used when launching the application from an IDE or on the development machine. It also complicates things, as it is yet another place to specify a set of variables that can impact how the application runs.</li>
+<li>Rely on the user for local development. Who really cares if you need to spin up a container with <code>docker compose up db</code> once every development session? This way, we can use the same compose file for local development with and without containers, and have a separate docker stack file for automated deployments.</li>
+<li>Implement heavy use of appsettings and environment variables for environment controls. Let's be real - the development environment doesn't need log aggregation or certs. But it will require an export directory and a backup directory for proper execution. We can take advantage of appsettings inheritance, ASP.NET environments, and environment variables to streamline the configuration between local-out-of-container, local-in-container, staging, and production. Automated deployments will use docker swarm/stack - and thus we can use configs and secrets for those.</li>
+</ul>
+<p>Let's start with docker. We can modify our existing docker containers (which use rootless bitnami) to use the standard postgres container. Let's set the development docker-compose up so that it also hot-reloads the web service as it changes.</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> rl2_dev
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mcr.microsoft.com/dotnet/sdk<span class="token punctuation">:</span><span class="token number">9.0</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./<span class="token punctuation">:</span>/build/
+      <span class="token punctuation">-</span> /build/src/bin/
+      <span class="token punctuation">-</span> /build/src/obj/
+      <span class="token punctuation">-</span> /build/deps/ResLogger2.Common/src/obj/
+      <span class="token punctuation">-</span> /build/deps/ResLogger2.Common/src/bin/
+      <span class="token punctuation">-</span> ./web_data/<span class="token punctuation">:</span>/web_data/
+    <span class="token key atrule">working_dir</span><span class="token punctuation">:</span> /build
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> dotnet watch run <span class="token punctuation">-</span><span class="token punctuation">-</span>project src/ResLogger2.Web.csproj
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"5103:5103"</span>
+      <span class="token punctuation">-</span> <span class="token string">"7281:7281"</span>
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> db
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> Development.env
+
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> postgres<span class="token punctuation">:</span>14.15<span class="token punctuation">-</span>alpine3.21
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"5432:5432"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> pg_data<span class="token punctuation">:</span>/var/lib/postgresql/data/
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> Development.env
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">pg_data</span><span class="token punctuation">:</span></code></pre>
+<p>with the <code>Development.env</code> file:</p>
+<pre class="language-env" tabindex="0"><code class="language-env">DOTNET_ENVIRONMENT=Development
+POSTGRES_USER=rl2
+POSTGRES_PASSWORD=rl2
+RL2_CONNSTRING=Host=db:5432;Database=rl2;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}</code></pre>
+<p>This runs both services with live code changes, as containers in Docker. Note that we're mapping the current directory to /build/ in the container - this is what drives the hot reload. We're also mapping some directories as volumes that we have on both the host and the container, and you might wonder why. Dotnet will place some platform/system-specific files into <code>obj</code> and <code>bin</code> that assist in building the application. These files also assist IDEs with analysis and other things that I don't know of. But what I do know is that the files places into these folders by the container are 1. unnecessary for us on Windows, and 2. break our view of the source code on the host. So, we simply map them as a volume, kind of to say, &quot;I know this is inside of a folder I've already mapped, but just kinda ignore that guy.&quot; Finally, we have a web_data bind mount that we can use inside <code>appsettings.Development.json</code>:</p>
+<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"Kestrel"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"EndPoints"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"Http"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"Url"</span><span class="token operator">:</span> <span class="token string">"http://*:5103"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"ExportDirectory"</span><span class="token operator">:</span> <span class="token string">"/web_data/export/"</span><span class="token punctuation">,</span>
+  <span class="token property">"BackupDirectory"</span><span class="token operator">:</span> <span class="token string">"/web_data/backup"</span>
+<span class="token punctuation">}</span></code></pre>
+<p>This way the containerized, hot-reloading application will plop its output (from export and backup) into the host filesystem, so we don't have to copy stuff out of the container if we need to examine the output.</p>
+<p>And with just a single <code>docker compose up</code> - we have our application stack running:</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/eo5DXWpbBS-2441.avif 2441w"><source type="image/webp" srcset="/posts/modernizing-deployment/eo5DXWpbBS-2441.webp 2441w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/eo5DXWpbBS-2441.png" alt="Image of Rider with docker-compose.yml open, with the ResLogger2 stats page open in Firefox in the foreground. The table of stats is empty." width="2441" height="1334"></picture></p>
+<p>The stats page displaying properly showcases that database access is available. There's no data, so the table is empty, but the connection is working. The only thing I'm not completely happy with is the speed and workflow of dotnet watch from within the docker container. I may experiment with docker watch at some point, but this is perfectly usable for now. Let's move on to deployment.</p>
+<h2 id="preparing-for-deployment">Preparing for Deployment</h2>
+<p>Since we want our automation to handle the deployment from just a commit, we'll want to make sure our application code is sound prior to even bothering to deploy. We'll start with a simple compile workflow that's required for all other jobs.</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml">  <span class="token key atrule">compile</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout repository
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v4
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">submodules</span><span class="token punctuation">:</span> recursive
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup dotnet
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>dotnet@v4
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">dotnet-version</span><span class="token punctuation">:</span> <span class="token string">'9.x.x'</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Restore
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> dotnet restore
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Compile
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> dotnet build <span class="token punctuation">-</span><span class="token punctuation">-</span>no<span class="token punctuation">-</span>restore <span class="token punctuation">-</span><span class="token punctuation">-</span>configuration Release</code></pre>
+<p>Easy enough. If this job fails, the rest of the jobs won't even run as long as we specify their dependency properly. Let's build the image... oh, wait. We didn't discuss our Dockerfile.</p>
+<p><code>Dockerfile</code></p>
+<pre class="language-Dockerfile" tabindex="0"><code class="language-Dockerfile">FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /build
+COPY ../src src
+COPY ../deps deps
+RUN dotnet publish "src/ResLogger2.Web.csproj" -c Release -o /app/publish
+
+FROM base AS final
+ENV TZ=America/New_York
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "ResLogger2.Web.dll"]</code></pre>
+<p>A simple multi-stage build. We use <code>dotnet/sdk</code> and copy in <code>src</code> and <code>deps</code>. Both ResLogger2.Web and ResLogger2.Common's <code>bin</code> and <code>obj</code> folders are in the <code>.dockerignore</code> file, so they're ignored under all circumstances - this keeps the build fast since no transfer takes place. Oh yeah, and we also have <code>web_data</code> in there, so any files from testing won't be copied to the context either. Anyways, we copy our source in, <code>dotnet publish</code> it, and copy this directory to the final image, based on <code>dotnet/aspnet</code>. This keeps the image small. It is currently 270MB - considering the <code>dotnet/aspnet</code> image itself is 223MB, this is acceptable to me.</p>
+<p>Moving on to build inside the action! Wait a second, we don't want to tag an image for staging with <code>latest</code>... and we don't want to deploy the <code>latest</code> image, probably built from <code>main</code>, to staging... So we have to generate the tag beforehand. Unfortunately, we also need to compute the environment in a roundabout way, as we only want <code>staging</code> commits to deploy to <code>staging</code>, and <code>main</code> commits to deploy to <code>production</code>. I wanted <code>main</code> to only deploy to production when tagged with a version, but it would be an utter nightmare to try to determine &quot;is this action running due to a push of a tag onto main?&quot; so I ditched that desire. Here's the action <code>identify</code> that sets some vars for later:</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml">  <span class="token key atrule">identify</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">fetch-depth</span><span class="token punctuation">:</span> <span class="token number">0</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Set deployment environment
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> identify_env
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+          if [[ "${{ github.ref_name }}" == "main" &amp;&amp; "${{ github.ref_type }}" == "branch" ]]; then
+            echo "environment=Production" >> $GITHUB_OUTPUT
+            echo "image_tag=latest" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref_name }}" == "staging" &amp;&amp; "${{ github.ref_type }}" == "branch" ]]; then
+            echo "environment=Staging" >> $GITHUB_OUTPUT
+            echo "image_tag=staging" >> $GITHUB_OUTPUT
+          else
+            echo "environment=None" >> $GITHUB_OUTPUT
+            echo "image_tag=None" >> $GITHUB_OUTPUT
+          fi</span>
+    <span class="token key atrule">outputs</span><span class="token punctuation">:</span>
+      <span class="token key atrule">environment</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.identify_env.outputs.environment <span class="token punctuation">}</span><span class="token punctuation">}</span>
+      <span class="token key atrule">image_tag</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.identify_env.outputs.image_tag <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>
+<p>Now we can move on:</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml">  <span class="token key atrule">push-image</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">needs</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> compile
+      <span class="token punctuation">-</span> identify
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout repository
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v4
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">submodules</span><span class="token punctuation">:</span> recursive
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Log in to the Container registry
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> docker/login<span class="token punctuation">-</span>action@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">registry</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//ghcr.io
+          <span class="token key atrule">username</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> github.actor <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">password</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> docker/build<span class="token punctuation">-</span>push<span class="token punctuation">-</span>action@v6
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">file</span><span class="token punctuation">:</span> ./src/Dockerfile
+          <span class="token key atrule">context</span><span class="token punctuation">:</span> .
+          <span class="token key atrule">push</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+          <span class="token key atrule">tags</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+            ghcr.io/perchbirdd/reslogger2:${{ needs.identify.outputs.image_tag }}
+            ghcr.io/perchbirdd/reslogger2:${{ github.sha }}</span></code></pre>
+<p>This will build the image and push it to the GitHub container registry with the tag of <code>staging</code> if the job is run from a commit to <code>staging</code>, or <code>latest</code> if the tag is run from a commit to <code>main</code>.</p>
+<p>Here's where things get dicey. Here was the original plan:</p>
+<ul>
+<li>Set environment secrets and variables on the GitHub UI. That is, username, hostname, database password, log aggregator API key.</li>
+</ul>
+<p>In the action,</p>
+<ol>
+<li>Log in to Tailscale</li>
+<li>SSH (thanks to Tailscale) into ${{ vars.ENV_USER }}@${{ vars.ENV_HOSTNAME }}</li>
+<li>Place some files onto the filesystem? The docker-compose? The .env file... ?</li>
+<li>docker compose up! but remotely</li>
+<li>Everyone is happy</li>
+</ol>
+<h3 id="tailscale-didnt-like-me-for-a-while">Tailscale didn't like me for a while</h3>
+<p>I love Tailscale. I really do. I thought it would be perfect for this CI. Spin up an ephemeral runner with an auth key. Connect to Tailscale. Connect to the host to deploy to. But I went down an hours-long rabbit hole just trying to get SSH to work.</p>
+<p>From the action, <code>tailscale ssh user@rl2-stg</code> worked fine. But <code>ssh user@rl2-stg</code> provided me with the dreaded <code>Host key verification failed.</code> every time. I was planning on utilizing some functionality that I wouldn't be able to use <code>tailscale ssh</code> for specifically, so this was a problem. It took me a number of hours to come up with the following actions step which allows <code>ssh</code> to function to other tailscale nodes:</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Configure SSH
+  <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    mkdir -p ~/.ssh
+    chmod 700 ~/.ssh
+    cat &lt;&lt;EOF >> ~/.ssh/config
+    Host ${{ vars.ENV_HOSTNAME }}
+        User ${{ vars.ENV_USER }}
+        Hostname ${{ vars.ENV_HOSTNAME }}
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+    EOF
+    chmod 600 ~/.ssh/config</span></code></pre>
+<p>&quot;Many hours? This is simple stuff, perch!&quot; you might say. Yes. It is simple stuff. However, while testing this out, I learned about <em>tags</em> in Tailscale for the first time. I had to, as they're a requirement for a lot of the automation and permissions stuff. What I didn't know is that tagging a node <em>removes you as the owner</em>, your ACLs <em>might not permit the admin to connect to them anymore</em>, and to un-tag the node <em>you have to log in and re-auth the node</em>. See where this is going? So I had to detour for a while and learn just enough Tailscale ACL configuration to be able to SSH back into the server I tagged. Yes, I could have just SSHed in and re-auth'd, but I don't permit any connections from the internet on port 22 on any of my VPS machines, so I'd have to go into the cloud provider's panel and add the rule back and... now that I think about it, maybe that would have been the easier way. Whatever.</p>
+<h2 id="waiter-more-context-please">Waiter, more Context, please!</h2>
+<p>Here's the deploy job:</p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+  <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+  <span class="token key atrule">needs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>compile<span class="token punctuation">,</span> identify<span class="token punctuation">,</span> push<span class="token punctuation">-</span>image<span class="token punctuation">]</span>
+  <span class="token key atrule">environment</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> needs.identify.outputs.environment <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token key atrule">concurrency</span><span class="token punctuation">:</span> deploy<span class="token punctuation">-</span>$<span class="token punctuation">{</span><span class="token punctuation">{</span> needs.identify.outputs.environment <span class="token punctuation">}</span><span class="token punctuation">}</span> 
+  <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout repository
+      <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v4
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Set Deployment Environment
+      <span class="token key atrule">id</span><span class="token punctuation">:</span> deployment_env
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        if [[ "${{ needs.identify.outputs.environment }}" == "None" ]]; then
+          exit 1
+        else
+          echo "environment=${{ needs.identify.outputs.environment }}" >> $GITHUB_ENV
+        fi</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Connect to Tailscale
+      <span class="token key atrule">uses</span><span class="token punctuation">:</span> tailscale/github<span class="token punctuation">-</span>action@v2
+      <span class="token key atrule">with</span><span class="token punctuation">:</span>
+        <span class="token key atrule">oauth-client-id</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.TS_OAUTH_CLIENT_ID <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">oauth-secret</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.TS_OAUTH_SECRET <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">tags</span><span class="token punctuation">:</span> tag<span class="token punctuation">:</span>ci
+        <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>ssh
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Configure SSH
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        cat &lt;&lt;EOF >> ~/.ssh/config
+        Host ${{ vars.ENV_HOSTNAME }}
+            User ${{ vars.ENV_USER }}
+            Hostname ${{ vars.ENV_HOSTNAME }}
+            StrictHostKeyChecking no
+            UserKnownHostsFile=/dev/null
+        EOF
+        chmod 600 ~/.ssh/config</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Hydrate env file
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        source $environment.env
+        echo "POSTGRES_PASSWORD=${{ secrets.DB_PASS }}" >> $environment.env
+        echo "RL2_CONNSTRING=Host=db:5432;Database=rl2;Username=${POSTGRES_USER};Password=${{ secrets.DB_PASS }}" >> $environment.env
+        echo "Serilog__WriteTo__1__Args__apiKey=${{ secrets.SEQ_API_KEY }}" >> $environment.env</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy with Docker Stack
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        docker context create remote --docker "host=ssh://${{ vars.ENV_USER }}@${{ vars.ENV_HOSTNAME }}"
+        docker context use remote
+        docker stack deploy -c docker-stack.$environment.yml rl2-$environment</span></code></pre>
+<p>So, what are we doing?</p>
+<ol>
+<li>Ensure we've completed the steps <code>compile</code>, <code>identify</code>, and <code>push-image</code></li>
+<li>Set the environment using the output of <code>identify</code></li>
+<li>Set the concurrency level using a label unique to each environment, so we don't try to deploy twice at the same time</li>
+<li>Fail fast if we somehow don't have a deployment environment set properly</li>
+<li>Checkout the repository</li>
+<li>Log in to Tailscale using repository secrets</li>
+<li>Configure SSH to bypass host key verification</li>
+<li>Place secrets that the runner has access to into the .env file for the provided environment</li>
+<li>Add a <code>docker context</code> and set it as the current context, and finally, <code>docker stack deploy</code> with the environment's stack file and the environment's name. It's done!</li>
+</ol>
+<p>Step 8 and 9 are the most interesting to me. In order to keep the repository clean and still be able to commit every file necessary for a deployment, we hydrate the env file with secrets on the runner, accessible by the runner. We also source the env file first, because <em>docker stack does not interpolate vars in env files!</em> You might say, &quot;you're using docker swarm/stack anyways, so why not use <code>secrets</code>? And the answer is that secrets are a file. That kind of sucks. I would have to modify the application in a very odd way to support it. I get why, it just doesn't work well for the technologies I'm using. There may be a more idiomatic docker way to get ASP.NET to utilize the stack secrets, but maybe I'll do that another time.</p>
+<p>Finally, I've set up DNS to point rl2-stg.perchbird.dev to the appropriate address and added Caddy to the stack to handle HTTPS and reverse proxying to the web service:</p>
+<p><code>docker-stack.Staging.yml</code></p>
+<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">services</span><span class="token punctuation">:</span>
+  
+  <span class="token key atrule">caddy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> caddy<span class="token punctuation">:</span>latest
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+      <span class="token punctuation">-</span> <span class="token string">"443:443"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> caddy_data<span class="token punctuation">:</span>/data
+      <span class="token punctuation">-</span> caddy_config<span class="token punctuation">:</span>/config
+    <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token string">"caddy reverse-proxy --from rl2-stg.perchbird.dev --to http://web:80"</span>
+  
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> ghcr.io/perchbirdd/reslogger2<span class="token punctuation">:</span>staging
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> web_data<span class="token punctuation">:</span>/web_data/
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> Staging.env
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> db
+
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> postgres<span class="token punctuation">:</span>14.15<span class="token punctuation">-</span>alpine3.21
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">"5432:5432"</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> pg_data<span class="token punctuation">:</span>/var/lib/postgresql/data/
+    <span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> Staging.env
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web_data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">pg_data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy_data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">caddy_config</span><span class="token punctuation">:</span></code></pre>
+<p>The stack is very simple. I've gotten pretty much where I want everything to be with this setup:</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/6tLKk-Cd9S-1748.avif 1748w"><source type="image/webp" srcset="/posts/modernizing-deployment/6tLKk-Cd9S-1748.webp 1748w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/6tLKk-Cd9S-1748.png" alt="The ResLogger2 stats page loaded from https://rl2-stg.perchbird.dev, with an empty table. In the background is the output of docker stack ps rl2-Staging, which shows three containers: db, web, and caddy." width="1748" height="953"></picture></p>
+<p>With just a commit to staging, I can ensure my code compiles properly, build and push a Docker image, and deploy to either environment, Staging or Production. There are no uncommitted latent files in the repository, nor are there any secrets being committed. I can clone the repo on a fresh machine, and as long as I can log into GitHub, I can redeploy the service. I also don't even have to run the service locally - I can work out of Staging and have CI deploy my changes, since it only takes a minute or two. Docker Swarm mode gives us a number of cool features. We aren't using configs or secrets in this stack (yet?) but we do get rolling deployments and rollback for free. The stack will continue using healthy containers until the new deployment's containers are healthy, and we can rollback a service to the previous deployment with a single command. And finally, we can add replication and clustering to the stack with practically zero effort if we want.</p>
+<p>I am very happy with this!</p>
+<h2 id="armed-and-dangerous">ARMed and Dangerous</h2>
+<p>There is one fatal flaw here: ResLogger2's production system is a free <em>arm64</em> VPS running on Oracle Cloud. The images that CI is producing are built only for amd64. Thankfully, resolving this is easy. We just add two steps to set up QEMU and buildx before building the image, then we add <code>platforms: linux/arm64,linux/amd64</code> and we're all set...</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/GYNQbOKaIw-351.avif 351w"><source type="image/webp" srcset="/posts/modernizing-deployment/GYNQbOKaIw-351.webp 351w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/GYNQbOKaIw-351.png" alt="GitHub Actions push-image step, in progress, with 2h 7m 55s elapsed" width="351" height="79"></picture></p>
+<p>Oh no. This is going to be an entire other thing, huh.</p>
+<p>It seems like many others have encountered this exact thing, and switched to... running build matrices? I mean, running them at the same time could save maybe 2 minutes, but the time consumer is not &quot;please run these at the same time&quot;, it's the process of creating the image (from what I can tell). I don't really understand how others are building complex images in 45 minutes, but that is not a problem for me to solve right now. It seems that a number of people build disparate images with architecture tags, then combine them into a tagged manifest that contains both. This works if you're running the builds at the same time via matrices, but it also works for <em>multiple builds on separate runners</em>. Huh. Where do I know where I can get an arm64 machine with plenty of processing power to spare for a self-hosted runner? <a href="#armed-and-dangerous">Oh, right!</a></p>
+<p>So, I set up the GitHub runner script on the ResLogger2 production system <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions#hardening-for-self-hosted-runners">much to GitHub's dismay.</a> I'll probably do a follow-up on this either transforming the action or hardening the runner further - both would be entertaining in my opinion. For now, since I don't expect many, if not any pull requests, I have set the actions on this repository to prevent any workflow runs without approval. Regardless, I can now run two jobs, one on GitHub's runners, one on my own, that create images for their respective architectures. Thankfully, that's all we need to do- oh.</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/_BTQoZ8Y5B-859.avif 859w"><source type="image/webp" srcset="/posts/modernizing-deployment/_BTQoZ8Y5B-859.webp 859w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/_BTQoZ8Y5B-859.png" alt="GitHub action output for &quot;Create SHA manifest and push&quot; with the output &quot;ghcr.io/perchbirdd/reslogger2:3443738bab7569bf5e90d80e62f61996b4857214-amd64 is a manifest list&quot;" width="859" height="154"></picture></p>
+<p>So, it looks like some change that they made with how the <code>docker/build-push-action</code> creates/pushes images. We have to turn <code>provenance: false</code>. If I were doing something important, I would find another way around this. But since this is a hobby project intended for myself to use and run, I don't mind turning off this option. But remember: SBOM, provenance, and attestation is very useful. That being said,</p>
+<p><picture><source type="image/avif" srcset="/posts/modernizing-deployment/sa10GEW5mk-925.avif 925w"><source type="image/webp" srcset="/posts/modernizing-deployment/sa10GEW5mk-925.webp 925w"><img loading="lazy" decoding="async" src="/posts/modernizing-deployment/sa10GEW5mk-925.png" alt="The OS/Arch tab of the ResLogger2 image pane on GitHub, showing an image for linux/amd64 as well as linux/arm64." width="925" height="458"></picture></p>
+<p>There we go!</p>
+<h2 id="finalizing-it">Finalizing it</h2>
+<p>Let's get production ready. Currently, ResLogger2 runs a docker compose setup. We can take down the compose completely, then bring up the db service to run an export.</p>
+<pre><code>ubuntu@main:~/app$ docker-compose -f docker-compose.prod.yml -p rl2 down --remove-orphans
+[+] Running 3/3
+ ⠿ Container rl2-web-1  Removed                                                                   0.3s
+ ⠿ Container rl2-db-1   Removed                                                                   0.2s
+ ⠿ Network rl2_default  Removed                                                                   0.2s
+ubuntu@main:~/app$ sudo docker compose -f /home/ubuntu/app/docker-compose.prod.yml -p rl2 up db -d
+[+] Running 1/1
+ ✔ Container rl2-db-1  Started                                                                    0.2s
+ubuntu@main:~/app$ sudo docker compose -f /home/ubuntu/app/docker-compose.prod.yml -p rl2 exec db pg_dump -U rl2 -F t -f /db_backup/db.backup
+ubuntu@main:~/app$ ls deploy/persistence/db_backup/
+db.backup
+</code></pre>
+<p>Now that we have an export ready, we can take down this compose entirely. I've moved the entire contents here from <code>app</code> to <code>app_old</code> for temporary safekeeping. Let's attempt a production deployment. We do everything the exact same, but slightly adjust the compose stack for production by referencing the <code>Production.env</code> file and changing the url passed to Caddy. We also add a new <code>pg_backup</code> volume for transfer in and out of the container - we can restore our database backup through here as well as take backups out from here. I back up the ResLogger2 database dump every day.</p>
+<p>Once it's deployed (Hooray! Our stack works not only in Production but on arm64!), we can begin the restoration. I've blocked incoming traffic so the web service can sit in peace while we prep the database.</p>
+<p>Copy the backup into the container and restore it:</p>
+<pre><code>ubuntu@main:~$ docker cp db.backup rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
+Successfully copied 235MB to rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku:/pg_backup
+ubuntu@main:~$ docker exec -it rl2-Production_db.1.njzjdiyym6nyh0hkw6pcgsyku &quot;/bin/sh&quot;
+/ # dropdb -f rl2 -U rl2
+/ # createdb -U rl2 -W rl2
+Password:
+/ # pg_restore -U rl2 -d rl2 /pg_backup/db.backup
+</code></pre>
+<p>And the database is back, and the stats page populates without a problem. There was a slight issue due to some config changes I made regarding the file-serving path inside of the container, but that was my fault. I updated the output path inside the container to remove a subfolder, but didn't change the links on the download page. Oops!</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>What did we learn here?</p>
+<ul>
+<li>How to commit everything to a repository without exposing secrets</li>
+<li>How to take advantage of GitHub's Actions and Container Registry for free for hobby projects (thanks, GitHub!)</li>
+<li>How to build a multi-arch image in GHA without taking 70 years, provided you have an arm64 system available and <a href="https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners#self-hosted-runner-security">don't mind using self hosted runners</a></li>
+<li>How to use some neat Docker features for things like remote deployments, rolling deploy and rollbacks, and future proofing (clustering, replication, configs, secrets)</li>
+</ul>
+<p>I would love to improve on this over time. However, I currently have a few other projects taking up valuable mind space, and I've spent too long on this for my brain to continue to focus. You can view the results of this project at <a href="https://github.com/perchbirdd/ResLogger2.Web">https://github.com/perchbirdd/ResLogger2.Web</a>. This post and project was heavily inspired by <a href="https://www.youtube.com/watch?v=fuZoxuBiL9o">this video by Dreams of Code.</a> If you have comments or desperately need to tell me I'm wrong about something, my contact info is in the About section up top. Thanks for reading!</p>
+
+<ul class="links-nextprev"><li class="links-nextprev-prev">← Previous<br> <a href="/posts/firstpost/">Welcome!</a></li>
+</ul>
+
+			</heading-anchors>
+		</main>
+
+		<footer>
+			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.0.0</a></em></p>
+		</footer>
+
+		<!-- This page `/posts/modernizing-deployment/` was built on 2024-12-18T00:25:17.362Z -->
+		<script type="module" src="/dist/rJ3_G-2ArF.js"></script>
+	</body>
+</html>
