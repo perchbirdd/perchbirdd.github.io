@@ -585,7 +585,7 @@ There's a few things we know already about the Berry Patch:
 - it reads the RTC
 - it writes to the RTC (sometimes)
 
-Let's start with GPIO access, as I've poked around that enough to establish a basic sense of it. The most likely place to find useful code is in functions that utilize the direction and control registers for GPIO. There's only two places the GPIO control register is used, and 12 places the control register is used.
+Let's start with GPIO access, as I've poked around that enough to establish a basic sense of it. The most likely place to find useful code is in functions that utilize the direction and control registers for GPIO. There's only two places the GPIO control register is used, and 12 places the direction register is used.
 
 <!-- setGPIOReadWrite -->
 ```c
