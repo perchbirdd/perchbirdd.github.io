@@ -1271,7 +1271,7 @@ WRAM:20001DC                 BX              LR @ loc_2010000</code></pre>
 <li>it reads the RTC</li>
 <li>it writes to the RTC (sometimes)</li>
 </ul>
-<p>Let's start with GPIO access, as I've poked around that enough to establish a basic sense of it. The most likely place to find useful code is in functions that utilize the direction and control registers for GPIO. There's only two places the GPIO control register is used, and 12 places the control register is used.</p>
+<p>Let's start with GPIO access, as I've poked around that enough to establish a basic sense of it. The most likely place to find useful code is in functions that utilize the direction and control registers for GPIO. There's only two places the GPIO control register is used, and 12 places the direction register is used.</p>
 <!-- setGPIOReadWrite -->
 <pre class="language-c" tabindex="0"><code class="language-c">undefined4 <span class="token function">setGPIOReadWrite</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
@@ -2175,7 +2175,7 @@ index eb5328346..8f28a8ffe 100644
 			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.1.2</a></em></p>
 		</footer>
 
-		<!-- This page `/posts/from-scratch-berry-patch/` was built on 2025-07-10T00:41:34.273Z -->
+		<!-- This page `/posts/from-scratch-berry-patch/` was built on 2025-07-10T01:00:11.514Z -->
 		<script type="module" src="/dist/xbxy_EL6cU.js"></script>
 		<script>
 		// it's hacky but it works i think
