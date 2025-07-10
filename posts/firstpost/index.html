@@ -236,7 +236,15 @@ html {
 	overflow-y: scroll;
 }
 body {
-	max-width: 40em;
+	max-width: 55em;
+}
+
+blockquote {
+    border-left: 4px solid #4c4c4c;
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+    color: #666;
+    font-style: italic;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -253,6 +261,9 @@ body {
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
 img {
   max-width: 100%;
+  	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 img[width][height] {
   height: auto;
@@ -317,12 +328,58 @@ header:after {
 	text-align: right;
 }
 
+/*
 table {
 	margin: 1em 0;
+	border-collapse: collapse;
 }
 table td,
 table th {
 	padding-right: 1em;
+}
+/* table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}  */
+
+table {
+	/* width: 100%; */
+	border-collapse: collapse;
+	font-size: 14px;
+	line-height: 1.6;
+	
+	/* max-width: 800px; */
+	/* margin: 0 auto; */
+	/* background-color: #16213e; */
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+th {
+	background-color: #0f172a;
+	color: #e2e8f0;
+	font-weight: 600;
+	text-align: left;
+	padding: 16px 20px;
+	font-size: 13px;
+	/* text-transform: uppercase; */
+	letter-spacing: 0.5px;
+	border-bottom: 1px solid #334155;
+}
+
+td {
+	padding: 16px 20px;
+	color: #f8fafc;
+	border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+tr:last-child td {
+	border-bottom: none;
+}
+
+th:not(:last-child),
+td:not(:last-child) {
+	border-right: 1px solid rgba(51, 65, 85, 0.2);
 }
 
 pre,
@@ -334,7 +391,9 @@ code[class*="language-"],
 pre[class*="language-"] {
 	font-size: 85%;
 }
+
 pre:not([class*="language-"]) {
+	padding: 1em;
 	margin: .5em 0;
 	line-height: 1.375; /* 22px /16 */
 	-moz-tab-size: var(--syntax-tab-size);
@@ -461,6 +520,80 @@ header {
 	margin-top: -1.5em;
 	font-size: 75%;
 	font-style: italic;
+}
+
+.collapsible-code-wrapper {
+    margin: 1rem 0;
+    border: 1px solid #e1e5e9;
+    /* border-radius: 6px; */
+    overflow: hidden;
+
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.code-toggle {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #f6f8fa;
+    border: none;
+    border-bottom: 1px solid #e1e5e9;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #24292e;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.code-toggle:hover {
+    background: #e1e5e9;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.toggle-text {
+    font-weight: 600;
+    color: #586069;
+}
+
+.code-container {
+    transition: all 0.3s ease;
+}
+
+.code-container pre {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .collapsible-code-wrapper {
+        border-color: #30363d;
+
+    }
+    
+    .code-toggle {
+        background: #21262d;
+        border-bottom-color: #30363d;
+        color: #c9d1d9;
+    }
+    
+    .code-toggle:hover {
+        background: #30363d;
+    }
+    
+    .toggle-text {
+        color: #8b949e;
+    }
 }</style>
 		<!-- <style>@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,100..900&display=swap');</style> -->
 		<style>@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
@@ -501,10 +634,75 @@ header {
 		</main>
 
 		<footer>
-			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.0.0</a></em></p>
+			<p><em>Built with <a href="https://www.11ty.dev/">Eleventy v3.1.2</a></em></p>
 		</footer>
 
-		<!-- This page `/posts/firstpost/` was built on 2024-12-18T00:37:59.239Z -->
-		<script type="module" src="/dist/rJ3_G-2ArF.js"></script>
+		<!-- This page `/posts/firstpost/` was built on 2025-07-10T00:41:34.272Z -->
+		<script type="module" src="/dist/xbxy_EL6cU.js"></script>
+		<script>
+		// it's hacky but it works i think
+		document.addEventListener('DOMContentLoaded', function() {
+			const codeBlocks = document.querySelectorAll('pre > code, pre[class*="language-"]');
+			
+			codeBlocks.forEach(function(block) {
+				const pre = block.tagName === 'PRE' ? block : block.parentElement;
+				
+				if (pre.classList.contains('collapsible-processed')) return;
+				
+				let language = 'Code';
+				const classList = pre.className || block.className || '';
+				const langMatch = classList.match(/language-(\w+)/);
+				if (langMatch) {
+					language = langMatch[1].toUpperCase();
+				}
+				
+				let title = language;
+				let prevNode = pre.previousSibling;
+				
+				while (prevNode) {
+					if (prevNode.nodeType === Node.COMMENT_NODE) {
+						title = prevNode.textContent.trim();
+					} else if (prevNode.nodeType === Node.ELEMENT_NODE && prevNode.textContent.trim() !== '') {
+						break;
+					}
+					prevNode = prevNode.previousSibling;
+				}
+				
+				const wrapper = document.createElement('div');
+				wrapper.className = 'collapsible-code-wrapper';
+				
+				const toggle = document.createElement('button');
+				toggle.className = 'code-toggle';
+				toggle.innerHTML = `
+					<span class="toggle-icon">▼</span>
+					<span class="toggle-text">${title}</span>
+				`;
+				
+				const codeContainer = document.createElement('div');
+				codeContainer.className = 'code-container';
+				
+				pre.parentNode.insertBefore(wrapper, pre);
+				codeContainer.appendChild(pre);
+				wrapper.appendChild(toggle);
+				wrapper.appendChild(codeContainer);
+				
+				toggle.addEventListener('click', function() {
+					const isCollapsed = codeContainer.style.display === 'none';
+					
+					if (isCollapsed) {
+						codeContainer.style.display = 'block';
+						toggle.querySelector('.toggle-icon').textContent = '▼';
+						toggle.querySelector('.toggle-text').textContent = title;
+					} else {
+						codeContainer.style.display = 'none';
+						toggle.querySelector('.toggle-icon').textContent = '▶';
+						toggle.querySelector('.toggle-text').textContent = title;
+					}
+				});
+				
+				pre.classList.add('collapsible-processed');
+			});
+		});
+		</script>
 	</body>
 </html>
