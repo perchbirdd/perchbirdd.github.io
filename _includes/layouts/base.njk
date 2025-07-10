@@ -67,5 +67,70 @@
 
 		<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
 		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+		<script>
+		// it's hacky but it works i think
+		document.addEventListener('DOMContentLoaded', function() {
+			const codeBlocks = document.querySelectorAll('pre > code, pre[class*="language-"]');
+			
+			codeBlocks.forEach(function(block) {
+				const pre = block.tagName === 'PRE' ? block : block.parentElement;
+				
+				if (pre.classList.contains('collapsible-processed')) return;
+				
+				let language = 'Code';
+				const classList = pre.className || block.className || '';
+				const langMatch = classList.match(/language-(\w+)/);
+				if (langMatch) {
+					language = langMatch[1].toUpperCase();
+				}
+				
+				let title = language;
+				let prevNode = pre.previousSibling;
+				
+				while (prevNode) {
+					if (prevNode.nodeType === Node.COMMENT_NODE) {
+						title = prevNode.textContent.trim();
+					} else if (prevNode.nodeType === Node.ELEMENT_NODE && prevNode.textContent.trim() !== '') {
+						break;
+					}
+					prevNode = prevNode.previousSibling;
+				}
+				
+				const wrapper = document.createElement('div');
+				wrapper.className = 'collapsible-code-wrapper';
+				
+				const toggle = document.createElement('button');
+				toggle.className = 'code-toggle';
+				toggle.innerHTML = `
+					<span class="toggle-icon">▼</span>
+					<span class="toggle-text">${title}</span>
+				`;
+				
+				const codeContainer = document.createElement('div');
+				codeContainer.className = 'code-container';
+				
+				pre.parentNode.insertBefore(wrapper, pre);
+				codeContainer.appendChild(pre);
+				wrapper.appendChild(toggle);
+				wrapper.appendChild(codeContainer);
+				
+				toggle.addEventListener('click', function() {
+					const isCollapsed = codeContainer.style.display === 'none';
+					
+					if (isCollapsed) {
+						codeContainer.style.display = 'block';
+						toggle.querySelector('.toggle-icon').textContent = '▼';
+						toggle.querySelector('.toggle-text').textContent = title;
+					} else {
+						codeContainer.style.display = 'none';
+						toggle.querySelector('.toggle-icon').textContent = '▶';
+						toggle.querySelector('.toggle-text').textContent = title;
+					}
+				});
+				
+				pre.classList.add('collapsible-processed');
+			});
+		});
+		</script>
 	</body>
 </html>
